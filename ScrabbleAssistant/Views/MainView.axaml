@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ScrabbleAssistant.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ScrabbleAssistant.Views.MainView"
+             x:DataType="vm:MainViewModel"
+             x:CompileBindings="True">
+  <Design.DataContext>
+    <vm:MainViewModel>
+      <vm:MainViewModel.AvailableLetters>Scrabble</vm:MainViewModel.AvailableLetters>
+      <vm:MainViewModel.CrossedLetters>c</vm:MainViewModel.CrossedLetters>
+    </vm:MainViewModel>
+  </Design.DataContext>
+  <UserControl.DataContext>
+    <vm:MainViewModel/>
+  </UserControl.DataContext>
+  <UserControl.Width>200</UserControl.Width>
+  <StackPanel>
+    <Label Content="Available Letters:"/>
+    <TextBox x:Name="AvailableLettersBox" Text="{Binding AvailableLetters}" />
+    <Label Content="Crossed Letters:"/>
+    <TextBox x:Name="CrossedLettersBox" Text="{Binding CrossedLetters}"/>
+    <Button x:Name="GoButton" Command="{Binding GetWordsCommand}" HorizontalAlignment="Center">Find All Words!</Button>
+    <ListBox x:Name="PossibilitiesBox" ItemsSource="{Binding PossibleWords}" Height="400"/>
+  </StackPanel> 
+</UserControl>

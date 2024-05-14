@@ -1,7 +1,7 @@
 ﻿using WordLookupCore;
 
 Console.WriteLine("Initializing dictionary...");
-var lookup = new WordLookup("../../../dictionary.txt");
+var lookup = new WordLookup();
 Console.WriteLine("Dictionary initialized.");
 
 Console.Write("What are your available letters?: ");

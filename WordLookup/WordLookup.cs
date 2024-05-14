@@ -11,9 +11,9 @@ namespace WordLookupCore
     public class WordLookup
     {
         private TryWordNode RootNode = new() { Word = "" };
-        public WordLookup(string dictionaryPath)
+        public WordLookup()
         {
-            var validWords = File.ReadAllLines(dictionaryPath);
+            var validWords = Properties.Resources.dictionary.Split(Environment.NewLine);
             foreach (var word in validWords)
             {
                 RootNode.AddWord(word.ToLower());

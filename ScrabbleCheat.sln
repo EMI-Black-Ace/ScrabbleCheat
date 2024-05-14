@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrabbleCheat", "ScrabbleCh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordLookupCore", "WordLookup\WordLookupCore.csproj", "{99CA6ABF-FC46-4BE3-A774-F76675197529}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrabbleAssistant", "ScrabbleAssistant\ScrabbleAssistant.csproj", "{506E1913-4041-4CDF-AAA0-3F64195C2CF1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrabbleAssistant.Android", "ScrabbleAssistant.Android\ScrabbleAssistant.Android.csproj", "{20F2DBAB-D00B-44AD-921E-5485C936886B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrabbleAssistant.Desktop", "ScrabbleAssistant.Desktop\ScrabbleAssistant.Desktop.csproj", "{A594C573-8068-4716-8B62-1770C6E477BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,18 @@ Global
 		{99CA6ABF-FC46-4BE3-A774-F76675197529}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99CA6ABF-FC46-4BE3-A774-F76675197529}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99CA6ABF-FC46-4BE3-A774-F76675197529}.Release|Any CPU.Build.0 = Release|Any CPU
+		{506E1913-4041-4CDF-AAA0-3F64195C2CF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{506E1913-4041-4CDF-AAA0-3F64195C2CF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{506E1913-4041-4CDF-AAA0-3F64195C2CF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{506E1913-4041-4CDF-AAA0-3F64195C2CF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20F2DBAB-D00B-44AD-921E-5485C936886B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20F2DBAB-D00B-44AD-921E-5485C936886B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20F2DBAB-D00B-44AD-921E-5485C936886B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20F2DBAB-D00B-44AD-921E-5485C936886B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A594C573-8068-4716-8B62-1770C6E477BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A594C573-8068-4716-8B62-1770C6E477BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A594C573-8068-4716-8B62-1770C6E477BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A594C573-8068-4716-8B62-1770C6E477BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
