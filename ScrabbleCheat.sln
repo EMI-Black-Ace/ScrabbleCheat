@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrabbleCheat", "ScrabbleCheat\ScrabbleCheat.csproj", "{7BF5934E-1FA5-412C-A7C2-230107835D97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrabbleCheat", "ScrabbleCheat\ScrabbleCheat.csproj", "{7BF5934E-1FA5-412C-A7C2-230107835D97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordLookupCore", "WordLookup\WordLookupCore.csproj", "{99CA6ABF-FC46-4BE3-A774-F76675197529}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7BF5934E-1FA5-412C-A7C2-230107835D97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BF5934E-1FA5-412C-A7C2-230107835D97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BF5934E-1FA5-412C-A7C2-230107835D97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99CA6ABF-FC46-4BE3-A774-F76675197529}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CA6ABF-FC46-4BE3-A774-F76675197529}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99CA6ABF-FC46-4BE3-A774-F76675197529}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99CA6ABF-FC46-4BE3-A774-F76675197529}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

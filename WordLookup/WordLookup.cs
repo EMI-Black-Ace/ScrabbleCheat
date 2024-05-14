@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScrabbleCheat
+namespace WordLookupCore
 {
-    internal class WordLookup
+    public class WordLookup
     {
         private TryWordNode RootNode = new() { Word = "" };
-        public WordLookup(string dictionaryPath) 
-        { 
+        public WordLookup(string dictionaryPath)
+        {
             var validWords = File.ReadAllLines(dictionaryPath);
             foreach (var word in validWords)
             {
@@ -28,7 +28,7 @@ namespace ScrabbleCheat
             public Dictionary<char, TryWordNode> Children { get; } = new();
             public void AddWord(string word, int depth = 0)
             {
-          
+
                 if (word.Length == depth)
                 {
                     IsWord = true;
@@ -66,9 +66,9 @@ namespace ScrabbleCheat
         {
             word = word.ToLower();
             var node = RootNode;
-            foreach(var letter in word)
+            foreach (var letter in word)
             {
-                if(!node.Children.TryGetValue(letter, out node))
+                if (!node.Children.TryGetValue(letter, out node))
                 {
                     return false;
                 }
@@ -87,7 +87,7 @@ namespace ScrabbleCheat
         {
             foreach (var permutation in Permutations.GetPermutations(Enumerable.Range(0, availableLetters.Length).ToArray()))
             {
-                foreach(var word in FindPossibleWordsForSequence(availableLetters, RootNode, permutation, 0))
+                foreach (var word in FindPossibleWordsForSequence(availableLetters, RootNode, permutation, 0))
                 {
                     yield return word;
                 }
@@ -101,10 +101,10 @@ namespace ScrabbleCheat
             {
                 if (availableLetters[sequence[i]] == '*')
                 {
-                    foreach(var substituteLetter in node.Children.Keys)
+                    foreach (var substituteLetter in node.Children.Keys)
                     {
                         var newstr = new StringBuilder(availableLetters).Replace('*', substituteLetter, sequence[i], 1).ToString();
-                        foreach(var word in FindPossibleWordsForSequence(newstr, node, sequence, i))
+                        foreach (var word in FindPossibleWordsForSequence(newstr, node, sequence, i))
                         {
                             yield return word;
                         }
@@ -125,11 +125,11 @@ namespace ScrabbleCheat
         {
             if (availableLetters.Contains('*'))
             {
-                foreach(var letter in "abcdefghijklmnopqrstuvwxyz")
+                foreach (var letter in "abcdefghijklmnopqrstuvwxyz")
                 {
                     StringBuilder s = new(availableLetters);
                     s.Replace('*', letter, availableLetters.IndexOf('*'), 1);
-                    foreach(var word in PossibleLetterSetsIncludingWildcards(s.ToString()))
+                    foreach (var word in PossibleLetterSetsIncludingWildcards(s.ToString()))
                     {
                         yield return word;
                     }

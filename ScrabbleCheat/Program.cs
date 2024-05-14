@@ -1,4 +1,4 @@
-﻿using ScrabbleCheat;
+﻿using WordLookupCore;
 
 Console.WriteLine("Initializing dictionary...");
 var lookup = new WordLookup("../../../dictionary.txt");
