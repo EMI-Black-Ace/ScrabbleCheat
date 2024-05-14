@@ -81,24 +81,63 @@ namespace ScrabbleCheat
             return RootNode.Where(n => n.IsWord).Select(n => n.Word);
         }
 
-        public IEnumerable<string> FindPossibleWords(string availableLetters) => FindPossibleWordsRaw(availableLetters).Distinct();
+        public IEnumerable<string> FindPossibleWords(string availableLetters, string crossedLetters) => FindPossibleWordsRaw(availableLetters + crossedLetters).Where(w => w.Contains(crossedLetters)).Distinct();
 
-        private IEnumerable<string> FindPossibleWordsRaw(string availableLetters)
+        private IEnumerable<string> FindPossibleWordsRaw(string availableLetters, TryWordNode? startNode = null)
         {
             foreach (var permutation in Permutations.GetPermutations(Enumerable.Range(0, availableLetters.Length).ToArray()))
             {
-                var node = RootNode;
-                foreach(var seq in permutation) 
-                { 
-                    if(node.Children.TryGetValue(availableLetters[seq], out var nextNode))
+                foreach(var word in FindPossibleWordsForSequence(availableLetters, RootNode, permutation, 0))
+                {
+                    yield return word;
+                }
+            }
+        }
+
+        private IEnumerable<string> FindPossibleWordsForSequence(string availableLetters, TryWordNode startNode, int[] sequence, int startPoint)
+        {
+            var node = startNode;
+            for (int i = startPoint; i < sequence.Length; i++)
+            {
+                if (availableLetters[sequence[i]] == '*')
+                {
+                    foreach(var substituteLetter in node.Children.Keys)
                     {
-                        node = nextNode;
-                        if(node.IsWord)
+                        var newstr = new StringBuilder(availableLetters).Replace('*', substituteLetter, sequence[i], 1).ToString();
+                        foreach(var word in FindPossibleWordsForSequence(newstr, node, sequence, i))
                         {
-                            yield return node.Word;
+                            yield return word;
                         }
                     }
                 }
+                if (node.Children.TryGetValue(availableLetters[sequence[i]], out var nextNode))
+                {
+                    node = nextNode;
+                    if (node.IsWord)
+                    {
+                        yield return node.Word;
+                    }
+                }
+            }
+        }
+
+        private IEnumerable<string> PossibleLetterSetsIncludingWildcards(string availableLetters)
+        {
+            if (availableLetters.Contains('*'))
+            {
+                foreach(var letter in "abcdefghijklmnopqrstuvwxyz")
+                {
+                    StringBuilder s = new(availableLetters);
+                    s.Replace('*', letter, availableLetters.IndexOf('*'), 1);
+                    foreach(var word in PossibleLetterSetsIncludingWildcards(s.ToString()))
+                    {
+                        yield return word;
+                    }
+                }
+            }
+            else
+            {
+                yield return availableLetters;
             }
         }
     }
