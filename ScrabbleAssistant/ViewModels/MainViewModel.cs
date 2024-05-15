@@ -9,7 +9,7 @@ namespace ScrabbleAssistant.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    private readonly WordLookup _lookup = new();
+    private readonly WordLookup _lookup = WordLookup.Instance;
     public string AvailableLetters { get; set; } = string.Empty;
     public string CrossedLetters { get; set; } = string.Empty;
     private IEnumerable<string> _possibleWords = Enumerable.Empty<string>();
@@ -20,7 +20,7 @@ public partial class MainViewModel : ViewModelBase
     }
     public ICommand GetWordsCommand { get; }
     public MainViewModel()
-    { 
+    {
         GetWordsCommand = new RelayCommand(GetWords);
     }
     private void GetWords()

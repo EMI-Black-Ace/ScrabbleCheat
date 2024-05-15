@@ -11,7 +11,17 @@ namespace WordLookupCore
     public class WordLookup
     {
         private TryWordNode RootNode = new() { Word = "" };
-        public WordLookup()
+        private static WordLookup? instance;
+        public static WordLookup Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new WordLookup();
+                return instance;
+            }
+        }
+        private WordLookup()
         {
             var validWords = Properties.Resources.dictionary.Split(Environment.NewLine);
             foreach (var word in validWords)
