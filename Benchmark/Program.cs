@@ -1,2 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Benchmark;
+using BenchmarkDotNet.Running;
+
+var summary = BenchmarkRunner.Run(typeof(WordLookupBenchmark));
