@@ -29,47 +29,52 @@ namespace WordLookupCore
                 RootNode.AddWord(word.ToLower());
             }
         }
+        private class TryWordNodeCollection : IEnumerable<TryWordNode>
+        {
+            private TryWordNode[] array = new TryWordNode[26];
+            public IEnumerator<TryWordNode> GetEnumerator() => array.Where(x => x != null).GetEnumerator();
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+            public void Add(char letter, TryWordNode parent)
+            {
+                if (array[letter - 'a'] == null)
+                {
+                    array[letter - 'a'] = new TryWordNode() { Word = parent.Word + letter, Parent = parent };
+                }
+            }
+            public TryWordNode this[char letter] => array[letter - 'a'];
+            public bool BranchesToLetter(char letter) => array[letter - 'a'] != null;
+        }
         [DebuggerDisplay("{Word}:{IsWord}")]
         private class TryWordNode : IEnumerable<TryWordNode>
         {
             public TryWordNode? Parent { get; set; }
             public required string Word { get; set; }
             public bool IsWord { get; set; }
-            public Dictionary<char, TryWordNode> Children { get; } = new();
+            public TryWordNodeCollection Children { get; } = new();
             public void AddWord(string word, int depth = 0)
             {
-
                 if (word.Length == depth)
                 {
                     IsWord = true;
                     return;
                 }
-                TryWordNode node;
-                if (Children.ContainsKey(word[depth]))
+                if (!Children.BranchesToLetter(word[depth]))
                 {
-                    node = Children[word[depth]];
+                    Children.Add(word[depth], this);
                 }
-                else
-                {
-                    node = new TryWordNode { Word = word.Substring(0, depth + 1), Parent = this };
-                    Children.Add(word[depth], node);
-                }
-                node.AddWord(word, depth + 1);
+                Children[word[depth]].AddWord(word, depth + 1);
             }
 
             public IEnumerator<TryWordNode> GetEnumerator()
             {
-                foreach (var node in Children.Values.SelectMany(n => n))
+                foreach (var node in Children.SelectMany(n => n))
                 {
                     yield return node;
                 }
                 yield return this;
             }
 
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                return GetEnumerator();
-            }
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
 
         public bool IsWord(string word)
@@ -78,9 +83,13 @@ namespace WordLookupCore
             var node = RootNode;
             foreach (var letter in word)
             {
-                if (!node.Children.TryGetValue(letter, out node))
+                if (node.Children.BranchesToLetter(letter))
                 {
                     return false;
+                }
+                else
+                {
+                    node = node.Children[letter];
                 }
             }
             return node.IsWord;
@@ -109,25 +118,23 @@ namespace WordLookupCore
             var node = startNode;
             for (int i = startPoint; i < sequence.Length; i++)
             {
-                if (availableLetters[sequence[i]] == '*')
+                char letter = availableLetters[sequence[i]];
+                if (letter == '*')
                 {
-                    foreach (var substituteLetter in node.Children.Keys)
+                    foreach (var word in node.Children.SelectMany(c => FindPossibleWordsForSequence(availableLetters, c, sequence, i + 1)))
                     {
-                        var newstr = new StringBuilder(availableLetters).Replace('*', substituteLetter, sequence[i], 1).ToString();
-                        foreach (var word in FindPossibleWordsForSequence(newstr, node, sequence, i))
-                        {
-                            yield return word;
-                        }
+                        yield return word;
                     }
                 }
-                if (node.Children.TryGetValue(availableLetters[sequence[i]], out var nextNode))
+                else if (node.Children.BranchesToLetter(letter))
                 {
-                    node = nextNode;
+                    node = node.Children[letter];
                     if (node.IsWord)
                     {
                         yield return node.Word;
                     }
                 }
+                else break;
             }
         }
 
