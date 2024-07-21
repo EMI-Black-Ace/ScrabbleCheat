@@ -15,7 +15,7 @@ namespace WordLookupCore.DB
             this._db = _db;
         }
 
-        private static async Task<WordLookup> GetLookup()
+        public static async Task<WordLookup> GetLookup()
         {
             var db = await WordDb.GetDatabase();
             var lookup = new WordLookup(db);
@@ -35,7 +35,7 @@ namespace WordLookupCore.DB
 
         public IEnumerable<string> FindPossibleWords(string availableLetters, string crossedLetters)
         {
-            var letters = LetterCount(availableLetters.Remove('*').ToLower() + crossedLetters.Remove('*').ToLower());
+            var letters = LetterCount(availableLetters.ToLower() + crossedLetters.ToLower());
             var wildcards = availableLetters.Count(l => l == '*');
             var pattern = crossedLetters.ToLower();
             var query = _db.entries.AsQueryable();
@@ -75,7 +75,11 @@ namespace WordLookupCore.DB
             int[] letters = new int[27];
             for(int i = 0; i < word.Length - 1; i++)
             {
-                letters[word[i] - 'a']++;
+                var normalizedLetter = word[i] - 'a';
+                if (normalizedLetter >= 0 && normalizedLetter <= 25)
+                {
+                    letters[normalizedLetter]++; 
+                }
             }
             letters[26] = word.Length;
             return letters;
