@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WordLookupCore.DB
 {
-    public class DbWordLookup
+    public class DbWordLookup : IWordLookup
     {
         private WordDb _db;
         private DbWordLookup(WordDb _db)

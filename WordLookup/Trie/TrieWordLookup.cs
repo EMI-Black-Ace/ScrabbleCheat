@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WordLookupCore.Trie
 {
-    public class TrieWordLookup
+    public class TrieWordLookup : IWordLookup
     {
         private TryWordNode RootNode = new() { Word = "" };
         private static TrieWordLookup? instance;
