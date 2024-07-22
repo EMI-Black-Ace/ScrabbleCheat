@@ -10,7 +10,7 @@ namespace Benchmark
 {
     public class WordLookupBenchmark
     {
-        WordLookup _lookup = WordLookup.GetLookup().GetAwaiter().GetResult();
+        DbWordLookup _lookup = DbWordLookup.GetLookup().GetAwaiter().GetResult();
         private string _word = "optimiz";
         private string _cross = "ed";
         private string _wildcard1 = "opti*iz";

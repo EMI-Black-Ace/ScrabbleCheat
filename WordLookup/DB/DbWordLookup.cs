@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace WordLookupCore.DB
 {
-    public class WordLookup
+    public class DbWordLookup
     {
         private WordDb _db;
-        private WordLookup(WordDb _db)
+        private DbWordLookup(WordDb _db)
         {
             this._db = _db;
         }
 
-        public static async Task<WordLookup> GetLookup()
+        public static async Task<DbWordLookup> GetLookup()
         {
             var db = await WordDb.GetDatabase();
-            var lookup = new WordLookup(db);
+            var lookup = new DbWordLookup(db);
             return lookup;
         }
 

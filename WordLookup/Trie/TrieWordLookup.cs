@@ -6,22 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WordLookupCore
+namespace WordLookupCore.Trie
 {
-    public class WordLookup
+    public class TrieWordLookup
     {
         private TryWordNode RootNode = new() { Word = "" };
-        private static WordLookup? instance;
-        public static WordLookup Instance
+        private static TrieWordLookup? instance;
+        public static TrieWordLookup Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new WordLookup();
+                    instance = new TrieWordLookup();
                 return instance;
             }
         }
-        private WordLookup()
+        private TrieWordLookup()
         {
             var validWords = Properties.Resources.dictionary.Split(Environment.NewLine);
             foreach (var word in validWords)
