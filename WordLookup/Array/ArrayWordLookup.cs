@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WordLookupCore.Array
 {
-    internal class ArrayWordLookup : IWordLookup
+    public class ArrayWordLookup : IWordLookup
     {
         private string[] words;
         public ArrayWordLookup()
@@ -17,14 +17,14 @@ namespace WordLookupCore.Array
 
         public IEnumerable<string> FindPossibleWords(string availableLetters, string pattern = "")
         {
+            var wildcards = availableLetters.Count(l => l == '*');
+            var usableLetters = (availableLetters.Replace("*", "") + pattern.Replace("_", "")).ToUpper();
+            var patternRegex = new Regex(pattern.ToUpper().Replace("_", @"\S"));
             return words.Where(word =>
             {
-                var wildcards = availableLetters.Count(l => l == '*');
-                var usableLetters = availableLetters.Replace("*", "") + pattern.Replace("_", "");
-                var patternRegex = new Regex(pattern.Replace("_", @"\S"));
                 for(int i = 0; i < 26; i++)
                 {
-                    if(availableLetters.Count(l => l == 'A' + i) + wildcards < word.Count(l => l == 'A' + i))
+                    if(usableLetters.Count(l => l == 'A' + i) + wildcards < word.Count(l => l == 'A' + i))
                     {
                         return false;
                     }

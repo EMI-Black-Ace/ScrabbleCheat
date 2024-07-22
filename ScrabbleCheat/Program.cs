@@ -1,7 +1,7 @@
-﻿using WordLookupCore.DB;
+﻿using WordLookupCore.Array;
 
 Console.WriteLine("Initializing dictionary...");
-var lookup = await DbWordLookup.GetLookup();
+var lookup = new ArrayWordLookup();
 Console.WriteLine("Dictionary initialized.");
 
 Console.Write("What are your available letters?: ");

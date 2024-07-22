@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WordLookupCore.DB;
+using WordLookupCore;
+using WordLookupCore.Array;
 
 namespace Benchmark
 {
     public class WordLookupBenchmark
     {
-        DbWordLookup _lookup = DbWordLookup.GetLookup().GetAwaiter().GetResult();
+        IWordLookup _lookup = new ArrayWordLookup();
         private string _word = "optimiz";
         private string _cross = "ed";
         private string _wildcard1 = "opti*iz";
