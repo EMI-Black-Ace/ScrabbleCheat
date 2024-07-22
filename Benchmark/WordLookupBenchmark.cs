@@ -18,6 +18,8 @@ namespace Benchmark
         private string _wildcard2 = "o*tim*iz";
 
         [Benchmark]
+        public bool VerifySingleWord() => _lookup.IsWord(_word + _cross);
+        [Benchmark]
         public List<string> LookupWords() => _lookup.FindPossibleWords(_word, _cross).ToList();
         [Benchmark]
         public List<string> LookupWordsOneWildcard() => _lookup.FindPossibleWords(_wildcard1, _cross).ToList();
